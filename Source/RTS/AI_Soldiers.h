@@ -3,6 +3,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Components/BoxComponent.h"
+
 #include "AI_Soldiers.generated.h"
 
 UCLASS()
@@ -13,19 +15,19 @@ private:
 
 public:
 	AAI_Soldiers();
-	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Collision")
+	UBoxComponent* SoldiersCollisionBox;
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	void SpawnSoldierInstances();	
-
+	void SpawnSoldierInstances(const FVector& SpawnLocation);
+	void LogCollisionAndMeshLocations();
+	
 protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(VisibleAnywhere)
 	UInstancedStaticMeshComponent* SoldiersMesh;
 	UPROPERTY()
-	float DistanceBetweenSoldiers=20.0f;
-	UPROPERTY()
 	float PackSize;
-	
-};
+	int16 InstanceIndex;
+	float Spacing = 100.0f;};

@@ -13,15 +13,16 @@ class RTS_API UMainMenu : public UUserWidget
 public:
 	virtual void NativeConstruct() override;
 	virtual void NativeOnMouseLeave(const FPointerEvent& InMouseEvent) override;
-	
+	virtual FReply NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent) override;
+
 protected:
 
 	UPROPERTY()
-	uint16 Amount=10;
+	uint16 M_PackSize=10;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Grid")
-	uint8 AmountGridX=20;
+	uint8 M_SizeGridX=5;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Grid")
-	uint8 AmountGridY=20;
+	uint8 M_SizeGridY=5;
 	
 	UPROPERTY(meta=(BindWidget))
 	UButton* IncreasePack;

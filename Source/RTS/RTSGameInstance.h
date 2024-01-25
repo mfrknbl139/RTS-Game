@@ -15,13 +15,17 @@ public:
 	FORCEINLINE void SetArmySizes(uint32 NewArmySize){ArmySize = NewArmySize;}
 	FORCEINLINE uint16 GetArmySizes(){return ArmySize;}
 
+	
 	void SetGridSizes(int32 NewGridSizeX, int32 NewGridSizeY);
 	TArray<FVector> OccupiedLocations;
+	
+	
 
 
 	//UE_LOG(LogTemp, Warning, TEXT("Does GridSizes Set"));
 	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("ArmySize has been generated."));
 	
+
 private:
 	UPROPERTY()
 	uint8 GridSizeX;
@@ -29,4 +33,5 @@ private:
 	uint8 GridSizeY;
 	UPROPERTY()
 	uint32 ArmySize;
+	
 };
