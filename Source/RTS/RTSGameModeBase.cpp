@@ -1,5 +1,5 @@
 #include "RTSGameModeBase.h"
-#include "RTS_PlayerController.h"
+#include "RTS/Player/RTS_PlayerController.h"
 
 ARTSGameModeBase::ARTSGameModeBase()
 {
