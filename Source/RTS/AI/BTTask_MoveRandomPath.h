@@ -14,6 +14,12 @@ class RTS_API UBTTask_MoveRandomPath : public UBTTask_BlackboardBase
 {
 	GENERATED_BODY()
 
-private:
+public:
+	UBTTask_MoveRandomPath(const FObjectInitializer& ObjectInitializer);
+
 	
+private:
+	EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory);
+
+   
 };

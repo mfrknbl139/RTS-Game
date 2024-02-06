@@ -8,7 +8,7 @@ public class RTS : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "Slate", "SlateCore","GameplayTasks" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "Slate", "SlateCore","GameplayTasks","AIModule","NavigationSystem" });
 	
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });

@@ -19,6 +19,7 @@ public:
 	UBoxComponent* SoldiersCollisionBox;
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	void MoveToLocation(const FVector& TargetLocation);
 	void SpawnSoldierInstances(const FVector& SpawnLocation);
 	void LogCollisionAndMeshLocations();
 	

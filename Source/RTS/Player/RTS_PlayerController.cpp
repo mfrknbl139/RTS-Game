@@ -5,11 +5,50 @@
 #include "RTS/RTSGameInstance.h"
 #include "Kismet/GameplayStatics.h"
 
+ARTS_PlayerController::ARTS_PlayerController()
+{
+	// Initialize the SoldierPack pointer
+	SoldierPack = nullptr;
+}
+
+
+void ARTS_PlayerController::SomeFunctionToSetSoldierPack()
+{
+	// Logic to find and set your soldier pack
+	// For example, you might find the soldier pack in the level and set it
+	SoldierPack = Cast<AAI_Soldiers>(UGameplayStatics::GetActorOfClass(GetWorld(), AAI_Soldiers::StaticClass()));
+}
+
 void ARTS_PlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 	InputComponent->BindAction("SpawnSoldiers", IE_Pressed, this, &ARTS_PlayerController::OnSpawnSoldiers);
-	
+
+	InputComponent->BindAction("LeftMouseClick", IE_Pressed, this, &ARTS_PlayerController::OnLeftMouseClick); //input action needs to be bound.
+
+}
+AAI_Soldiers* ARTS_PlayerController::GetSoldiersPack() const
+{
+	return SoldierPack;
+}
+void ARTS_PlayerController::SetSoldierPack(AAI_Soldiers* NewSoldierPack)
+{
+	SoldierPack = NewSoldierPack;
+}
+void ARTS_PlayerController::OnLeftMouseClick()
+{
+	FVector ClickedLocation;
+	FHitResult HitResult;
+	if (GetHitResultUnderCursor(ECollisionChannel::ECC_Visibility, false, HitResult))
+	{
+		ClickedLocation = HitResult.Location;
+
+		// Assuming you have a reference to your soldier pack actor
+		if (AAI_Soldiers* SoldiersPack = GetSoldiersPack())
+		{
+			SoldiersPack->MoveToLocation(ClickedLocation);
+		}
+	}
 }
 
 void ARTS_PlayerController::OnSpawnSoldiers()
