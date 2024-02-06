@@ -1,25 +1,22 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
-//#include "BTTask_MoveRandomPath.h"
 #include "BTTask_MoveRandomPath.h"
-
 #include "BehaviorTree/BehaviorTreeTypes.h"
 #include "BehaviorTree/BehaviorTreeComponent.h"
 #include "BehaviorTree/Tasks/BTTask_BlackboardBase.h"
-#include "BehaviorTree/BlackboardComponent.h"
 #include "AIController.h"
 #include "NavigationSystem.h"
-#include "AI_Soldiers.h"
-#include "NavigationSystem.h"
+
 
 UBTTask_MoveRandomPath::UBTTask_MoveRandomPath(const FObjectInitializer& ObjectInitializer): Super(ObjectInitializer)
 {
 	NodeName = "Random Patrol";
 }
 
-
-//Navigation Bound has to be placed in Level
+/*
+ *Navigation Bound has to be placed in Level
+ * 
+ */
 EBTNodeResult::Type UBTTask_MoveRandomPath::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	AAIController* AICon = OwnerComp.GetAIOwner();

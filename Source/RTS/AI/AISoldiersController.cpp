@@ -15,7 +15,10 @@ AAISoldiersController::AAISoldiersController()
 		BehaviorTree=Obj.Object;
 	}
 }
-
+/*
+ *	Behavior Tree Component !
+ * 
+ */
 void AAISoldiersController::BeginPlay()
 {
 	Super::BeginPlay();

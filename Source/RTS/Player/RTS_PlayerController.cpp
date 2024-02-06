@@ -1,8 +1,11 @@
-#include "RTS_PlayerController.h"
+/* Copy Rights
+ * 
+ * 
+ */
 
+#include "RTS_PlayerController.h"
 #include "RTS/AI/AI_Soldiers.h"
 #include "RTS/GridActor.h"
-#include "RTS/RTSGameInstance.h"
 #include "Kismet/GameplayStatics.h"
 
 ARTS_PlayerController::ARTS_PlayerController()
@@ -23,9 +26,8 @@ void ARTS_PlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 	InputComponent->BindAction("SpawnSoldiers", IE_Pressed, this, &ARTS_PlayerController::OnSpawnSoldiers);
-
 	InputComponent->BindAction("LeftMouseClick", IE_Pressed, this, &ARTS_PlayerController::OnLeftMouseClick); //input action needs to be bound.
-
+	
 }
 AAI_Soldiers* ARTS_PlayerController::GetSoldiersPack() const
 {
@@ -68,13 +70,13 @@ void ARTS_PlayerController::OnSpawnSoldiers()
 		return;
 	}
 
-	// İlgili konumu işgal edilmiş olarak işaretle
+	// Mark the location if it is in used
 	GridActor->SetLocationOccupied(NewSpawnLocation.X, NewSpawnLocation.Y, true);
 
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
     
-	// Actor'ü rastgele seçilen konumda spawn et
+	// Spawn actor to a random location
 	AAI_Soldiers* NewSoldiersActor = GetWorld()->SpawnActor<AAI_Soldiers>(AAI_Soldiers::StaticClass(), NewSpawnLocation, SpawnRotator, SpawnParams);
 	if (NewSoldiersActor)
 	{

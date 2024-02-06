@@ -7,7 +7,8 @@
 #include "BehaviorTree/BehaviorTree.h"
 #include "AISoldiersController.generated.h"
 
-/**
+/*
+ *
  * 
  */
 UCLASS()

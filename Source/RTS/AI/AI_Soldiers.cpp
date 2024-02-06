@@ -1,39 +1,34 @@
 #include "AI_Soldiers.h"
-
 #include "AISoldiersController.h"
 #include "BehaviorTree/BlackboardComponent.h"
-#include "Components/InstancedStaticMeshComponent.h"
 #include "UObject/ConstructorHelpers.h"
 #include "RTS/RTSGameInstance.h"
 #include "Kismet/GameplayStatics.h"
 
+
+
 AAI_Soldiers::AAI_Soldiers()
 {
+
 	PrimaryActorTick.bCanEverTick = false;
-
 	AIControllerClass=AAISoldiersController::StaticClass();//Controller class ataması.
+	SoldiersSkeletalMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SoldiersSkeletalMesh"));
+	RootComponent = SoldiersSkeletalMesh;
 	
-	SoldiersMesh = CreateDefaultSubobject<UInstancedStaticMeshComponent>(TEXT("SoldiersMesh"));
-	RootComponent=SoldiersMesh;
-
-	SoldiersCollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("SoldiersCollisionBox"));
-	SoldiersCollisionBox->SetupAttachment(RootComponent);
-	SoldiersCollisionBox->SetCollisionProfileName(TEXT("SoldierGroup"));
-	SoldiersCollisionBox->SetHiddenInGame(false, true);  // Oyun sırasında ve editörde görünür
-
-
-	const ConstructorHelpers::FObjectFinder<UStaticMesh> SoldierMesh(TEXT("/Game/Maps/_GENERATED/FurkanBULBUL/SoldierM"));
-	if (SoldierMesh.Succeeded())
-	{
-		SoldiersMesh->SetSimulatePhysics(true);
-		SoldiersMesh->SetCollisionProfileName(TEXT("Pawn"));
-		SoldiersMesh->SetStaticMesh(SoldierMesh.Object);
-	}
-	else
-	{
-		UE_LOG(LogTemp,Warning,TEXT("Unsuccesfull attempt"))
-	}
+	// SoldiersCollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("SoldiersCollisionBox"));
+	// SoldiersCollisionBox->SetupAttachment(RootComponent);
 }
+
+void AAI_Soldiers::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+}
+
+void AAI_Soldiers::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+}                      
+
 void AAI_Soldiers::BeginPlay()
 {
 	Super::BeginPlay();
@@ -45,17 +40,12 @@ void AAI_Soldiers::BeginPlay()
 	}
 	
 }
-void AAI_Soldiers::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-}
 
-void AAI_Soldiers::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-}
-
-//Move pack to clicked location.
+/*
+ *
+ * Move pack to clicked location. Has not yet been initiliazed
+ *
+ */
 void AAI_Soldiers::MoveToLocation(const FVector& TargetLocation)
 {
 	AAISoldiersController* AIController = Cast<AAISoldiersController>(GetController());
@@ -65,6 +55,11 @@ void AAI_Soldiers::MoveToLocation(const FVector& TargetLocation)
 	}
 }
 
+/*
+ *
+ *	Spawns soldiers meshes square as pack
+ * 
+ */
 
 void AAI_Soldiers::SpawnSoldierInstances(const FVector& SpawnLocation)
 {
