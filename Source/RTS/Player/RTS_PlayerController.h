@@ -11,8 +11,13 @@ class RTS_API ARTS_PlayerController : public APlayerController
 	GENERATED_BODY()
 	
 public:
-	bool IsLocationFree(FVector,float);
 	ARTS_PlayerController();
+	bool IsLocationFree(FVector,float);
+
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Spawning")
+	TSubclassOf<class AAI_Soldiers> BPAI_Soldiers;
+
 protected:
 	AAI_Soldiers* GetSoldiersPack() const;
 	void SetSoldierPack(AAI_Soldiers* NewSoldierPack);
@@ -22,6 +27,7 @@ protected:
 
 	// Method to handle the "SpawnSoldiers" action
 	void OnSpawnSoldiers();
+	void GetRef();
 	FVector SpawnLocation;
 	FRotator SpawnRotator=FRotator(0.f,0.f,0.f);
 	TArray<FVector> OccupiedLocations;
@@ -29,4 +35,5 @@ protected:
 
 private:
 	AAI_Soldiers* SoldierPack;
+	
 };

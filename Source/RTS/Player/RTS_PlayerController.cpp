@@ -52,7 +52,6 @@ void ARTS_PlayerController::OnLeftMouseClick()
 		}
 	}
 }
-
 void ARTS_PlayerController::OnSpawnSoldiers()
 {
 	AGridActor* GridActor = Cast<AGridActor>(UGameplayStatics::GetActorOfClass(GetWorld(), AGridActor::StaticClass()));
@@ -62,32 +61,31 @@ void ARTS_PlayerController::OnSpawnSoldiers()
 		return;
 	}
 
-	FVector NewSpawnLocation = GridActor->GetRandomUnoccupiedGridLocation(); // Yeni spawn konumu
-
-	if (NewSpawnLocation == FVector(-1, -1, -1)) // Konum geçerli mi kontrol et
+	FVector NewSpawnLocation = GridActor->GetRandomUnoccupiedGridLocation();
+	if (NewSpawnLocation == FVector(-1, -1, -1))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("No empty location available for spawning."));
 		return;
 	}
 
-	// Mark the location if it is in used
-	GridActor->SetLocationOccupied(NewSpawnLocation.X, NewSpawnLocation.Y, true);
-
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
-    
-	// Spawn actor to a random location
-	AAI_Soldiers* NewSoldiersActor = GetWorld()->SpawnActor<AAI_Soldiers>(AAI_Soldiers::StaticClass(), NewSpawnLocation, SpawnRotator, SpawnParams);
-	if (NewSoldiersActor)
+
+	if (BPAI_Soldiers) // Check if the Blueprint class is set
 	{
-		NewSoldiersActor->SpawnSoldierInstances(NewSpawnLocation);
-		UE_LOG(LogTemp, Warning, TEXT("Soldiers spawned at location: X: %f, Y: %f"), NewSpawnLocation.X, NewSpawnLocation.Y);
+		AAI_Soldiers* NewSoldiersActor = GetWorld()->SpawnActor<AAI_Soldiers>(BPAI_Soldiers, NewSpawnLocation, FRotator::ZeroRotator, SpawnParams);
+		if (NewSoldiersActor)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Blueprint soldiers spawned at location: X: %f, Y: %f"), NewSpawnLocation.X, NewSpawnLocation.Y);
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Failed to spawn blueprint soldiers."));
+		}
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Failed to spawn soldiers."));
+		UE_LOG(LogTemp, Warning, TEXT("Blueprint class not set."));
 	}
 }
-	
-
 

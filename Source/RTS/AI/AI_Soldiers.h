@@ -31,7 +31,7 @@ protected:
 	USkeletalMeshComponent* SoldiersSkeletalMesh;
 
 	
-
+	
 	UPROPERTY()
 	float PackSize;
 	int16 InstanceIndex;
