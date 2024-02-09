@@ -45,8 +45,8 @@ void ARTS_PlayerController::OnLeftMouseClick()
 	{
 		ClickedLocation = HitResult.Location;
 
-		// Assuming you have a reference to your soldier pack actor
-		if (AAI_Soldiers* SoldiersPack = GetSoldiersPack())
+
+		if (AAI_Soldiers* SoldiersPack = GetSoldiersPack())		// Assuming you have a reference to your soldier pack actor
 		{
 			SoldiersPack->MoveToLocation(ClickedLocation);
 		}
@@ -76,6 +76,7 @@ void ARTS_PlayerController::OnSpawnSoldiers()
 		AAI_Soldiers* NewSoldiersActor = GetWorld()->SpawnActor<AAI_Soldiers>(BPAI_Soldiers, NewSpawnLocation, FRotator::ZeroRotator, SpawnParams);
 		if (NewSoldiersActor)
 		{
+			
 			UE_LOG(LogTemp, Warning, TEXT("Blueprint soldiers spawned at location: X: %f, Y: %f"), NewSpawnLocation.X, NewSpawnLocation.Y);
 		}
 		else
@@ -86,6 +87,8 @@ void ARTS_PlayerController::OnSpawnSoldiers()
 	else
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Blueprint class not set."));
+
+
 	}
 }
 

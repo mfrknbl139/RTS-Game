@@ -53,26 +53,36 @@ void AAI_Soldiers::MoveToLocation(const FVector& TargetLocation)
 	}
 }
 
-
 /*
  *
  *	Spawns soldiers meshes square as pack
  * 
  */
+
 void AAI_Soldiers::SpawnSoldierInstances(const FVector& SpawnLocation)
 {
 	if (URTSGameInstance* GameInstance = Cast<URTSGameInstance>(UGameplayStatics::GetGameInstance(GetWorld())))
 	{
 		PackSize = GameInstance->GetArmySizes();
 		FVector RandomLocation(0.0f, 0.0f, 0.0f);
-		int32 SideCount = FMath::Sqrt(PackSize);
-		float TotalWidth = (SideCount - 1) * 100.0f;
-		float TotalHeight = (SideCount - 1) * 100.0f;
+		SideCount = FMath::Sqrt(PackSize);
+		TotalWidth = (SideCount - 1) * 100.0f;
+		TotalHeight = (SideCount - 1) * 100.0f;
 
 		FVector CollisionBoxSize(TotalWidth, TotalHeight, 20.0f);
-		FVector CollisionBoxCenter = SpawnLocation + FVector(TotalWidth / 2, TotalHeight / 2, 20.0f / 2);
+		CollisionBoxCenter = SpawnLocation + FVector(TotalWidth / 2, TotalHeight / 2, 20.0f / 2);
 
 		SoldiersCollisionBox->SetBoxExtent(CollisionBoxSize / 2);
 		SoldiersCollisionBox->SetWorldLocation(CollisionBoxCenter);
+
+		
+
+
+		
 	}
+}
+
+void AAI_Soldiers::LogCollisionAndMeshLocations()
+{
+	UE_LOG(LogTemp,Warning,TEXT("warning"))
 }

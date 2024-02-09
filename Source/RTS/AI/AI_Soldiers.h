@@ -12,7 +12,11 @@ class RTS_API AAI_Soldiers : public ACharacter
 {
 	GENERATED_BODY()
 private:
-
+	float TotalWidth;
+	float TotalHeight;
+	int32 SideCount;
+	FVector CollisionBoxCenter;
+	
 public:
 	AAI_Soldiers();
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Collision")
